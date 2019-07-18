@@ -188,7 +188,19 @@ func (q *Query) Matches(tags map[string]string) bool {
 
 			// see if the triplet (tag, operator, operand) matches any tag
 			// "tx.gas", "=", "7", { "tx.gas": 7, "tx.ID": "4AE393495334" }
-			if !match(tag, op, reflect.ValueOf(valueWithoutSingleQuotes), tags) {
+			if op == OpContains {
+				var isMatchOne = false
+				valueTM := strings.Split(valueWithoutSingleQuotes, ":")
+				for _,valueT := range valueTM {
+					if match(tag, op, reflect.ValueOf(valueT), tags) {
+						isMatchOne = true
+						continue
+					}
+				}
+				if !isMatchOne {
+					return false
+				}
+			} else if !match(tag, op, reflect.ValueOf(valueWithoutSingleQuotes), tags) {
 				return false
 			}
 		case rulenumber:
