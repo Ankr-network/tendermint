@@ -24,7 +24,7 @@ func Sum(bz []byte) []byte {
 //-------------------------------------------------------------
 
 const (
-	TruncatedSize = 20
+	TruncatedSize = 23
 )
 
 type sha256trunc struct {
