@@ -48,6 +48,10 @@ func NewEventBusWithBufferCapacity(cap int) *EventBus {
 	return b
 }
 
+func (b *EventBus) PubSubServer() *tmpubsub.Server {
+	return b.pubsub
+}
+
 func (b *EventBus) SetLogger(l log.Logger) {
 	b.BaseService.SetLogger(l)
 	b.pubsub.SetLogger(l.With("module", "pubsub"))
